@@ -18,7 +18,6 @@ const About = () => {
   };
 
   const handleDownloadResume = () => {
-    // Resume is in public folder - Vite automatically handles base path
     const resumeUrl = `${import.meta.env.BASE_URL}resume.pdf`;
     const link = document.createElement('a');
     link.href = resumeUrl;
@@ -27,7 +26,7 @@ const About = () => {
     link.click();
     document.body.removeChild(link);
   };
-
+  
   return (
     <section
       id="about"
@@ -51,10 +50,10 @@ const About = () => {
             className="w-24 h-1 bg-gradient-to-r from-blue-600 to-purple-600 mx-auto mb-12"
           />
 
-          <div className="max-w-4xl mx-auto">
+          <div className="max-w-4xl mx-auto px-2">
             <motion.p
               variants={itemVariants}
-              className="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-6 leading-relaxed"
+              className="text-base sm:text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-4 sm:mb-6 leading-relaxed"
             >
               I'm a Backend Node.js Developer driven by the challenge of building powerful and efficient 
               server-side applications. My MERN stack proficiency, particularly in Node.js and database 
@@ -63,7 +62,7 @@ const About = () => {
 
             <motion.p
               variants={itemVariants}
-              className="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-6 leading-relaxed"
+              className="text-base sm:text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-4 sm:mb-6 leading-relaxed"
             >
               I also leverage NestJS for modern development practices and have experience with Shopify 
               integrations, adding value to e-commerce platforms. My expertise includes working with 
@@ -72,7 +71,7 @@ const About = () => {
 
             <motion.p
               variants={itemVariants}
-              className="text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-8 leading-relaxed"
+              className="text-base sm:text-lg md:text-xl text-gray-700 dark:text-gray-300 mb-6 sm:mb-8 leading-relaxed"
             >
               I'm passionate about creating scalable backend systems, optimizing database performance, 
               and building seamless integrations that enhance user experiences.
@@ -81,7 +80,7 @@ const About = () => {
             <motion.div variants={itemVariants} className="flex justify-center">
               <button
                 onClick={handleDownloadResume}
-                className="px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center gap-2"
+                className="w-full sm:w-auto px-6 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200 flex items-center justify-center gap-2 text-base sm:text-lg"
               >
                 <FaDownload className="w-5 h-5" />
                 Download Resume

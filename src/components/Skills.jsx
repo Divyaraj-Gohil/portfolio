@@ -1,9 +1,12 @@
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { skills } from '../data/skills';
 import * as SiIcons from 'react-icons/si';
 import { FaPlug, FaLink, FaObjectGroup, FaCodeBranch, FaBug, FaDatabase, FaCloud } from 'react-icons/fa';
 
 const Skills = () => {
+  const [carouselWidth, setCarouselWidth] = useState(0);
+
   // Icon mapping for custom icons
   const customIcons = {
     FaPlug,
@@ -26,10 +29,19 @@ const Skills = () => {
     return SiIcons[iconName] || SiIcons.SiReact; // Fallback to React icon
   };
 
-  // Calculate carousel width (number of skills * card width + gaps)
-  const cardWidth = 160; // w-40 = 160px
-  const gap = 32; // gap-8 = 32px
-  const carouselWidth = skills.length * (cardWidth + gap);
+  // Calculate carousel width based on screen size
+  useEffect(() => {
+    const calculateWidth = () => {
+      // Mobile: w-32 = 128px, Desktop: w-40 = 160px
+      const cardWidth = window.innerWidth < 640 ? 128 : 160;
+      const gap = 32; // gap-8 = 32px
+      setCarouselWidth(skills.length * (cardWidth + gap));
+    };
+
+    calculateWidth();
+    window.addEventListener('resize', calculateWidth);
+    return () => window.removeEventListener('resize', calculateWidth);
+  }, []);
 
   return (
     <section
@@ -63,7 +75,7 @@ const Skills = () => {
             <motion.div
               className="flex gap-8"
               animate={{
-                x: [0, -carouselWidth],
+                x: carouselWidth > 0 ? [0, -carouselWidth] : 0,
               }}
               transition={{
                 x: {
@@ -84,24 +96,24 @@ const Skills = () => {
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: index * 0.05 }}
                     whileHover={{ 
-                      scale: 1.15,
-                      y: -15,
+                      scale: 1.1,
+                      y: -10,
                       transition: { duration: 0.3 }
                     }}
-                    className="flex-shrink-0 w-40 h-44 flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 group cursor-pointer border border-gray-200 dark:border-gray-700"
+                    className="flex-shrink-0 w-32 h-36 sm:w-40 sm:h-44 flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 group cursor-pointer border border-gray-200 dark:border-gray-700"
                   >
                     <motion.div
                       whileHover={{ 
                         rotate: [0, -10, 10, -10, 10, 0],
-                        scale: 1.2
+                        scale: 1.15
                       }}
                       transition={{ duration: 0.5 }}
-                      className="text-6xl mb-4 transition-transform duration-300"
+                      className="text-4xl sm:text-6xl mb-2 sm:mb-4 transition-transform duration-300"
                       style={{ color: skill.color }}
                     >
                       <Icon />
                     </motion.div>
-                    <span className="text-sm font-semibold text-gray-700 dark:text-gray-300 text-center px-3 leading-tight">
+                    <span className="text-xs sm:text-sm font-semibold text-gray-700 dark:text-gray-300 text-center px-2 sm:px-3 leading-tight">
                       {skill.name}
                     </span>
                   </motion.div>

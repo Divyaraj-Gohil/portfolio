@@ -76,13 +76,13 @@ const Experience = () => {
               {/* Timeline for Experience */}
               <div className="relative">
                 {/* Vertical line */}
-                <div className="absolute left-8 top-0 bottom-0 w-1 bg-blue-600 rounded-full hidden md:block"></div>
+                <div className="absolute left-4 sm:left-8 top-0 bottom-0 w-1 bg-blue-600 rounded-full hidden md:block"></div>
 
-                <div className="space-y-8">
+                <div className="space-y-6 sm:space-y-8">
                   {experience.map((exp, index) => (
                     <div
                       key={exp.id}
-                      className="relative md:pl-20"
+                      className="relative md:pl-20 pl-0"
                     >
                       {/* Timeline dot - fixed position relative to timeline */}
                       <div className="hidden md:block absolute left-8 top-6 w-6 h-6 bg-white dark:bg-gray-800 rounded-full border-4 border-blue-600 shadow-lg z-20 transform -translate-x-1/2"></div>
@@ -93,24 +93,24 @@ const Experience = () => {
                         whileInView="visible"
                         viewport={{ once: true, amount: 0.3 }}
                         whileHover="hover"
-                        className="bg-white dark:bg-gray-900 rounded-2xl p-6 md:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border-l-4 border-blue-600 relative overflow-hidden group"
+                        className="bg-white dark:bg-gray-900 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border-l-4 border-blue-600 relative overflow-hidden group"
                       >
                         {/* Subtle overlay on hover */}
                         <div className="absolute inset-0 bg-blue-600/0 group-hover:bg-blue-600/5 transition-all duration-300"></div>
                         
                         <div className="relative z-10">
-                          <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6 gap-4">
+                          <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4 sm:mb-6 gap-3 sm:gap-4">
                             <div className="flex-1">
-                              <div className="flex items-center gap-3 mb-2">
-                                <h4 className="text-2xl font-bold text-gray-900 dark:text-white">
+                              <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
+                                <h4 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
                                   {exp.title}
                                 </h4>
                               </div>
-                              <div className="flex items-center gap-2 text-xl text-blue-600 dark:text-blue-400 font-semibold mb-3">
-                                <FaMapMarkerAlt className="text-lg" />
-                                <span>{exp.company}</span>
+                              <div className="flex items-center gap-2 text-lg sm:text-xl text-blue-600 dark:text-blue-400 font-semibold mb-2 sm:mb-3">
+                                <FaMapMarkerAlt className="text-base sm:text-lg" />
+                                <span className="break-words">{exp.company}</span>
                               </div>
-                              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+                              <div className="flex items-center gap-2 text-sm sm:text-base text-gray-600 dark:text-gray-400">
                                 <FaCalendarAlt className="text-sm" />
                                 <span className="font-medium">{exp.period}</span>
                               </div>
@@ -159,13 +159,13 @@ const Experience = () => {
               {/* Timeline for Education */}
               <div className="relative">
                 {/* Vertical line */}
-                <div className="absolute left-8 top-0 bottom-0 w-1 bg-emerald-600 rounded-full hidden md:block"></div>
+                <div className="absolute left-4 sm:left-8 top-0 bottom-0 w-1 bg-emerald-600 rounded-full hidden md:block"></div>
 
-                <div className="space-y-8">
+                <div className="space-y-6 sm:space-y-8">
                   {education.map((edu, index) => (
                     <div
                       key={edu.id}
-                      className="relative md:pl-20"
+                      className="relative md:pl-20 pl-0"
                     >
                       {/* Timeline dot - fixed position relative to timeline */}
                       <div className="hidden md:block absolute left-8 top-6 w-6 h-6 bg-white dark:bg-gray-800 rounded-full border-4 border-emerald-600 shadow-lg z-20 transform -translate-x-1/2"></div>
@@ -176,32 +176,32 @@ const Experience = () => {
                         whileInView="visible"
                         viewport={{ once: true, amount: 0.3 }}
                         whileHover="hover"
-                        className="bg-white dark:bg-gray-900 rounded-2xl p-6 md:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border-l-4 border-emerald-600 relative overflow-hidden group"
+                        className="bg-white dark:bg-gray-900 rounded-xl sm:rounded-2xl p-4 sm:p-6 md:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border-l-4 border-emerald-600 relative overflow-hidden group"
                       >
                         {/* Subtle overlay on hover */}
                         <div className="absolute inset-0 bg-emerald-600/0 group-hover:bg-emerald-600/5 transition-all duration-300"></div>
                         
                         <div className="relative z-10">
-                          <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-6 gap-4">
+                          <div className="flex flex-col md:flex-row md:items-start md:justify-between mb-4 sm:mb-6 gap-3 sm:gap-4">
                             <div className="flex-1">
-                              <div className="flex items-center gap-3 mb-2">
-                                <h4 className="text-2xl font-bold text-gray-900 dark:text-white">
+                              <div className="flex flex-wrap items-center gap-2 sm:gap-3 mb-2">
+                                <h4 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
                                   {edu.degree}
                                 </h4>
                                 {edu.description[0]?.includes('8.49') && (
-                                  <span className="px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full text-sm font-semibold">
+                                  <span className="px-2 sm:px-3 py-1 bg-emerald-100 dark:bg-emerald-900/30 text-emerald-600 dark:text-emerald-400 rounded-full text-xs sm:text-sm font-semibold">
                                     CGPA: 8.49/10
                                   </span>
                                 )}
                               </div>
-                              <div className="flex items-center gap-2 text-xl text-emerald-600 dark:text-emerald-400 font-semibold mb-3">
-                                <FaMapMarkerAlt className="text-lg" />
-                                <span>{edu.institution}</span>
+                              <div className="flex items-center gap-2 text-lg sm:text-xl text-emerald-600 dark:text-emerald-400 font-semibold mb-2 sm:mb-3">
+                                <FaMapMarkerAlt className="text-base sm:text-lg" />
+                                <span className="break-words">{edu.institution}</span>
                               </div>
-                              <div className="text-lg text-gray-700 dark:text-gray-300 mb-2 font-medium">
+                              <div className="text-base sm:text-lg text-gray-700 dark:text-gray-300 mb-2 font-medium">
                                 {edu.field}
                               </div>
-                              <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
+                              <div className="flex items-center gap-2 text-sm sm:text-base text-gray-600 dark:text-gray-400">
                                 <FaCalendarAlt className="text-sm" />
                                 <span className="font-medium">{edu.period}</span>
                               </div>

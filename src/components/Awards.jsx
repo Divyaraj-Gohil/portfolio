@@ -93,7 +93,7 @@ const Awards = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.2 }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto"
+          className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8 max-w-5xl mx-auto"
         >
           {awards.map((award) => {
             const colors = getColorClasses(award.color);
@@ -103,24 +103,24 @@ const Awards = () => {
                 key={award.id}
                 variants={cardVariants}
                 whileHover="hover"
-                className="bg-white dark:bg-gray-900 rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border-l-4"
+                className="bg-white dark:bg-gray-900 rounded-xl sm:rounded-2xl p-6 sm:p-8 shadow-xl hover:shadow-2xl transition-all duration-300 border-l-4"
                 style={{ borderLeftColor: award.color === 'gold' ? '#eab308' : '#3b82f6' }}
               >
-                <div className="flex items-start gap-6">
+                <div className="flex flex-col sm:flex-row items-start gap-4 sm:gap-6">
                   {/* Icon */}
-                  <div className={`p-4 rounded-xl ${colors.bg} flex-shrink-0`}>
+                  <div className={`p-3 sm:p-4 rounded-xl ${colors.bg} flex-shrink-0`}>
                     <div className={colors.icon}>
                       {getIcon(award.icon)}
                     </div>
                   </div>
 
                   {/* Content */}
-                  <div className="flex-1">
-                    <div className="flex items-start justify-between mb-3">
-                      <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+                  <div className="flex-1 w-full">
+                    <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-2 mb-3">
+                      <h3 className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white">
                         {award.title}
                       </h3>
-                      <span className={`px-3 py-1 ${colors.badge} rounded-full text-sm font-semibold whitespace-nowrap ml-2`}>
+                      <span className={`px-3 py-1 ${colors.badge} rounded-full text-xs sm:text-sm font-semibold whitespace-nowrap self-start sm:self-auto`}>
                         {award.date}
                       </span>
                     </div>
