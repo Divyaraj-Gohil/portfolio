@@ -1,0 +1,23 @@
+// Skills with icon mapping
+export const skills = [
+  { name: "NodeJS", icon: "SiNodedotjs", color: "#339933" },
+  { name: "ExpressJS", icon: "SiExpress", color: "#000000" },
+  { name: "NestJS", icon: "SiNestjs", color: "#E0234E" },
+  { name: "TypeScript", icon: "SiTypescript", color: "#3178C6" },
+  { name: "ReactJS", icon: "SiReact", color: "#61DAFB" },
+  { name: "GraphQL", icon: "SiGraphql", color: "#E10098" },
+  { name: "WebSocket", icon: "FaPlug", color: "#010101" },
+  { name: "Shopify", icon: "SiShopify", color: "#96BF48" },
+  { name: "Webhook", icon: "FaCloud", color: "#6366F1" },
+  { name: "Shopify Extension", icon: "SiShopify", color: "#96BF48" },
+  { name: "OOP", icon: "FaObjectGroup", color: "#8B5CF6" },
+  { name: "Version Control", icon: "FaCodeBranch", color: "#F97316" },
+  { name: "Debugging", icon: "FaBug", color: "#EF4444" },
+  { name: "MongoDB", icon: "SiMongodb", color: "#47A248" },
+  { name: "SQL", icon: "FaDatabase", color: "#336791" },
+  { name: "Sequelize", icon: "SiSequelize", color: "#52B0E7" },
+  { name: "TypeORM", icon: "FaDatabase", color: "#FB8334" },
+  { name: "Ethereum", icon: "SiEthereum", color: "#3C3C3C" }, 
+  { name: "Solidity", icon: "SiSolidity", color: "#3C3C3C" },
+  { name: "Blockchain", icon: "FaLink", color: "#F7931A" },
+];

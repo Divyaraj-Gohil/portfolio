@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://divyaraj-gohil.github.io/portfolio/sitemap.xml
+
