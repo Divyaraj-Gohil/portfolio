@@ -97,7 +97,7 @@ const Navbar = () => {
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           onClick={() => setIsMenuOpen(false)}
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 md:hidden"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
         />
       )}
 
@@ -115,20 +115,20 @@ const Navbar = () => {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="text-xl sm:text-2xl font-bold text-gray-900 dark:text-white"
+              className="text-lg sm:text-xl md:text-2xl font-bold text-gray-900 dark:text-white truncate max-w-[140px] sm:max-w-none"
             >
-              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent whitespace-nowrap">
                 Divyaraj Gohil
               </span>
             </motion.div>
 
             {/* Desktop Navigation */}
-            <div className="hidden md:flex items-center space-x-8">
+            <div className="hidden lg:flex items-center space-x-4 xl:space-x-6 2xl:space-x-8">
               {navItems.map((item) => (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`relative px-3 py-2 font-medium transition-all duration-300 ${
+                  className={`relative px-2 xl:px-3 py-2 text-sm xl:text-base font-medium transition-all duration-300 whitespace-nowrap ${
                     activeSection === item.id
                       ? 'text-gray-900 dark:text-gray-100'
                       : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100'
@@ -147,13 +147,50 @@ const Navbar = () => {
               ))}
               <button
                 onClick={toggleDarkMode}
-                className="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+                className="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors flex-shrink-0"
                 aria-label="Toggle dark mode"
               >
                 {darkMode ? (
                   <HiSun className="w-5 h-5 text-yellow-500" />
                 ) : (
                   <HiMoon className="w-5 h-5 text-gray-700" />
+                )}
+              </button>
+            </div>
+
+            {/* Tablet Navigation - compact version with all items */}
+            <div className="hidden md:flex lg:hidden items-center space-x-2">
+              {navItems.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`relative px-1.5 py-2 text-xs font-medium transition-all duration-300 whitespace-nowrap ${
+                    activeSection === item.id
+                      ? 'text-gray-900 dark:text-gray-100'
+                      : 'text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100'
+                  }`}
+                  title={item.label}
+                >
+                  {item.label}
+                  {activeSection === item.id && (
+                    <motion.div
+                      layoutId="activeSection"
+                      className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-gray-600 via-gray-500 to-gray-600 rounded-full"
+                      initial={false}
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </button>
+              ))}
+              <button
+                onClick={toggleDarkMode}
+                className="p-1.5 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors flex-shrink-0 ml-1"
+                aria-label="Toggle dark mode"
+              >
+                {darkMode ? (
+                  <HiSun className="w-4 h-4 text-yellow-500" />
+                ) : (
+                  <HiMoon className="w-4 h-4 text-gray-700" />
                 )}
               </button>
             </div>
@@ -185,7 +222,7 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile Menu */}
+          {/* Mobile & Tablet Menu */}
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ 
@@ -193,7 +230,7 @@ const Navbar = () => {
               height: isMenuOpen ? 'auto' : 0
             }}
             transition={{ duration: 0.3 }}
-            className={`md:hidden overflow-hidden ${
+            className={`lg:hidden overflow-hidden ${
               isMenuOpen ? 'pb-4' : ''
             }`}
           >
