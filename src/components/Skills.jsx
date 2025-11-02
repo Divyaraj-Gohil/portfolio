@@ -32,8 +32,8 @@ const Skills = () => {
   // Calculate carousel width based on screen size
   useEffect(() => {
     const calculateWidth = () => {
-      // Mobile: w-32 = 128px, Desktop: w-40 = 160px
-      const cardWidth = window.innerWidth < 640 ? 128 : 160;
+      // Mobile: w-36 = 144px, Desktop: w-40 = 160px
+      const cardWidth = window.innerWidth < 640 ? 144 : 160;
       const gap = 32; // gap-8 = 32px
       setCarouselWidth(skills.length * (cardWidth + gap));
     };
@@ -100,7 +100,7 @@ const Skills = () => {
                       y: -10,
                       transition: { duration: 0.3 }
                     }}
-                    className="flex-shrink-0 w-32 h-36 sm:w-40 sm:h-44 flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 group cursor-pointer border border-gray-200 dark:border-gray-700"
+                    className="flex-shrink-0 w-36 h-40 sm:w-40 sm:h-44 flex flex-col items-center justify-center bg-gradient-to-br from-gray-50 via-gray-100 to-gray-200 dark:from-gray-800 dark:via-gray-900 dark:to-gray-800 rounded-xl sm:rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 group cursor-pointer border border-gray-200 dark:border-gray-700"
                   >
                     <motion.div
                       whileHover={{ 

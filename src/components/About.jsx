@@ -17,14 +17,73 @@ const About = () => {
     visible: { opacity: 1, y: 0 },
   };
 
-  const handleDownloadResume = () => {
-    const resumeUrl = `${import.meta.env.BASE_URL}resume.pdf`;
-    const link = document.createElement('a');
-    link.href = resumeUrl;
-    link.download = 'Divyaraj_Gohil_Resume.pdf';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+  const handleDownloadResume = async () => {
+    try {
+      // Construct the correct path based on environment
+      const baseUrl = import.meta.env.BASE_URL || '/';
+      const resumeUrl = `${baseUrl}resume.pdf`;
+      
+      console.log('Attempting to download resume from:', resumeUrl);
+      
+      // Fetch the file as a blob
+      const response = await fetch(resumeUrl);
+      
+      if (!response.ok) {
+        throw new Error(`Failed to fetch resume: ${response.status} ${response.statusText}`);
+      }
+      
+      // Get the blob data
+      const blob = await response.blob();
+      
+      // Check if blob is valid (not empty)
+      if (blob.size === 0) {
+        throw new Error('Resume file appears to be empty');
+      }
+      
+      console.log('Resume blob size:', blob.size, 'bytes');
+      console.log('Resume blob type:', blob.type);
+      
+      // Verify it's actually a PDF by checking the first bytes
+      const arrayBuffer = await blob.arrayBuffer();
+      const uint8Array = new Uint8Array(arrayBuffer);
+      const pdfHeader = uint8Array.slice(0, 4);
+      const pdfHeaderString = String.fromCharCode(...pdfHeader);
+      
+      if (pdfHeaderString !== '%PDF') {
+        console.warn('Warning: File does not appear to be a valid PDF (header:', pdfHeaderString, ')');
+      }
+      
+      // Create a new blob with explicit PDF type
+      const pdfBlob = new Blob([arrayBuffer], { type: 'application/pdf' });
+      
+      // Create a blob URL
+      const blobUrl = window.URL.createObjectURL(pdfBlob);
+      
+      // Create download link
+      const link = document.createElement('a');
+      link.href = blobUrl;
+      link.download = 'Divyaraj_Gohil_Resume.pdf';
+      link.setAttribute('download', 'Divyaraj_Gohil_Resume.pdf');
+      link.style.display = 'none';
+      
+      // Append to body
+      document.body.appendChild(link);
+      
+      // Trigger download
+      link.click();
+      
+      // Cleanup after a delay to ensure download starts
+      setTimeout(() => {
+        if (document.body.contains(link)) {
+          document.body.removeChild(link);
+        }
+        window.URL.revokeObjectURL(blobUrl);
+      }, 300);
+      
+    } catch (error) {
+      console.error('Error downloading resume:', error);
+      alert(`Failed to download resume: ${error.message}\n\nPlease check:\n1. resume.pdf is in the public folder\n2. The file is a valid PDF\n3. Your browser allows downloads`);
+    }
   };
   
   return (

@@ -59,31 +59,55 @@ const Navbar = () => {
   ];
 
   const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-      setIsMenuOpen(false);
-    }
+    // Re-enable body scroll first
+    document.body.style.overflow = '';
+    
+    // Close menu immediately
+    setIsMenuOpen(false);
+    
+    // Small delay to ensure menu is closed and scroll is enabled
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
   };
 
   // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (isMenuOpen && !event.target.closest('nav')) {
+      // Don't close if clicking on:
+      // - The menu button
+      // - Inside the nav (including menu items)
+      // - Dark mode toggle
+      if (
+        isMenuOpen &&
+        !event.target.closest('nav') &&
+        !event.target.closest('[aria-label="Toggle menu"]') &&
+        !event.target.closest('[aria-label="Toggle dark mode"]')
+      ) {
         setIsMenuOpen(false);
+        document.body.style.overflow = '';
       }
     };
 
     if (isMenuOpen) {
-      document.addEventListener('click', handleClickOutside);
-      // Prevent body scroll when menu is open
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
+      // Use a small delay to avoid conflicts with button clicks
+      const timeoutId = setTimeout(() => {
+        document.addEventListener('click', handleClickOutside, true);
+        // Prevent body scroll when menu is open
+        document.body.style.overflow = 'hidden';
+      }, 100);
+
+      return () => {
+        clearTimeout(timeoutId);
+        document.removeEventListener('click', handleClickOutside, true);
+        document.body.style.overflow = '';
+      };
     }
 
     return () => {
-      document.removeEventListener('click', handleClickOutside);
       document.body.style.overflow = '';
     };
   }, [isMenuOpen]);
@@ -96,7 +120,14 @@ const Navbar = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          onClick={() => setIsMenuOpen(false)}
+          onClick={(e) => {
+            e.stopPropagation();
+            setIsMenuOpen(false);
+          }}
+          onTouchStart={(e) => {
+            e.stopPropagation();
+            setIsMenuOpen(false);
+          }}
           className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40 lg:hidden"
         />
       )}
@@ -105,8 +136,8 @@ const Navbar = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled
-            ? 'bg-white/80 dark:bg-gray-900/80 backdrop-blur-lg shadow-lg'
+          scrolled || isMenuOpen
+            ? 'bg-white/95 dark:bg-gray-900/95 backdrop-blur-lg shadow-lg'
             : 'bg-transparent'
         }`}
       >
@@ -174,7 +205,7 @@ const Navbar = () => {
                   {item.label}
                   {activeSection === item.id && (
                     <motion.div
-                      layoutId="activeSection"
+                      layoutId="activeSectionTablet"
                       className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-gray-600 via-gray-500 to-gray-600 rounded-full"
                       initial={false}
                       transition={{ type: "spring", stiffness: 380, damping: 30 }}
@@ -209,9 +240,13 @@ const Navbar = () => {
                 )}
               </button>
               <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsMenuOpen(!isMenuOpen);
+                }}
+                className="p-2 rounded-lg bg-gray-200 dark:bg-gray-700 hover:bg-gray-300 dark:hover:bg-gray-600 transition-colors relative z-50"
                 aria-label="Toggle menu"
+                type="button"
               >
                 {isMenuOpen ? (
                   <HiX className="w-6 h-6 text-gray-900 dark:text-white" />
@@ -230,22 +265,36 @@ const Navbar = () => {
               height: isMenuOpen ? 'auto' : 0
             }}
             transition={{ duration: 0.3 }}
-            className={`lg:hidden overflow-hidden ${
-              isMenuOpen ? 'pb-4' : ''
+            onClick={(e) => e.stopPropagation()}
+            className={`lg:hidden overflow-hidden relative z-50 ${
+              isMenuOpen ? 'pb-4 bg-white dark:bg-gray-900' : ''
             }`}
           >
             <div className="space-y-2 pt-4">
               {navItems.map((item) => (
                 <button
                   key={item.id}
-                  onClick={() => scrollToSection(item.id)}
-                  className={`block w-full text-left px-4 py-3 rounded-lg transition-all duration-200 ${
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    e.preventDefault();
+                    scrollToSection(item.id);
+                  }}
+                  className={`relative block w-full text-left px-4 py-3 rounded-lg transition-all duration-200 ${
                     activeSection === item.id
-                      ? 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-gray-100 font-semibold'
+                      ? 'text-gray-900 dark:text-gray-100 font-semibold bg-gray-100 dark:bg-gray-800'
                       : 'text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-800'
                   }`}
+                  type="button"
                 >
                   {item.label}
+                  {activeSection === item.id && (
+                    <motion.div
+                      layoutId="activeSectionMobile"
+                      className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-gray-600 via-gray-500 to-gray-600 rounded-r-full"
+                      initial={false}
+                      transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                    />
+                  )}
                 </button>
               ))}
             </div>

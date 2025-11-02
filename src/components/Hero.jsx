@@ -35,7 +35,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden"
+      className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50 dark:from-gray-900 dark:via-gray-800 dark:to-gray-900 relative overflow-hidden pb-16 sm:pb-8"
     >
       {/* Background decoration */}
       <div className="absolute inset-0 overflow-hidden">
@@ -69,14 +69,14 @@ const Hero = () => {
 
         <motion.p
           variants={itemVariants}
-          className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-6 sm:mb-8 max-w-2xl mx-auto px-4"
+          className="text-base sm:text-lg md:text-xl text-gray-600 dark:text-gray-400 mb-4 sm:mb-6 md:mb-8 max-w-2xl mx-auto px-4"
         >
           Building powerful and efficient server-side applications with Node.js, NestJS, and Shopify integrations.
         </motion.p>
 
         <motion.div
           variants={itemVariants}
-          className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-8 sm:mb-12 px-4"
+          className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center mb-6 sm:mb-8 md:mb-12 px-4"
         >
           <button
             onClick={scrollToProjects}
@@ -94,7 +94,7 @@ const Hero = () => {
 
         <motion.div
           variants={itemVariants}
-          className="flex justify-center space-x-4 sm:space-x-6 px-4"
+          className="flex justify-center space-x-4 sm:space-x-6 px-4 mb-4 sm:mb-0"
         >
           <a
             href="https://github.com/Divyaraj-Gohil"
@@ -129,7 +129,7 @@ const Hero = () => {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
+        className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 z-20 pointer-events-auto"
       >
         <motion.button
           onClick={() => {
@@ -138,10 +138,10 @@ const Hero = () => {
           }}
           animate={{ y: [0, 10, 0] }}
           transition={{ repeat: Infinity, duration: 2 }}
-          className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800"
+          className="text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 transition-colors p-2 sm:p-3 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 bg-white/80 dark:bg-gray-800/80 backdrop-blur-sm shadow-lg"
           aria-label="Scroll down"
         >
-          <HiArrowDown className="w-6 h-6" />
+          <HiArrowDown className="w-5 h-5 sm:w-6 sm:h-6" />
         </motion.button>
       </motion.div>
 
