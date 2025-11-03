@@ -1,8 +1,23 @@
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { FaGithub, FaExternalLinkAlt } from 'react-icons/fa';
 import { projects } from '../data/projects';
 
 const Projects = () => {
+  const [expandedProjects, setExpandedProjects] = useState(new Set());
+
+  const toggleDescription = (projectId) => {
+    setExpandedProjects((prev) => {
+      const newSet = new Set(prev);
+      if (newSet.has(projectId)) {
+        newSet.delete(projectId);
+      } else {
+        newSet.add(projectId);
+      }
+      return newSet;
+    });
+  };
+
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -66,9 +81,30 @@ const Projects = () => {
                 <h3 className="text-xl sm:text-2xl font-bold mb-2 text-gray-900 dark:text-white">
                   {project.title}
                 </h3>
-                <p className="text-sm sm:text-base text-gray-600 dark:text-gray-400 mb-4 line-clamp-3">
-                  {project.description}
-                </p>
+                {project.company && (
+                  <div className="mb-2">
+                    <span className="inline-block px-2 sm:px-3 py-1 text-xs sm:text-sm bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-full font-medium">
+                      {project.company}
+                    </span>
+                  </div>
+                )}
+                <div className="mb-4">
+                  <p
+                    className={`text-sm sm:text-base text-gray-600 dark:text-gray-400 ${
+                      expandedProjects.has(project.id) ? '' : 'line-clamp-3'
+                    }`}
+                  >
+                    {project.description}
+                  </p>
+                  {project.description.length > 100 && (
+                    <button
+                      onClick={() => toggleDescription(project.id)}
+                      className="mt-2 text-sm font-medium text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 transition-colors"
+                    >
+                      {expandedProjects.has(project.id) ? 'Show less' : 'Show more'}
+                    </button>
+                  )}
+                </div>
 
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.techStack.map((tech, index) => (
@@ -81,26 +117,28 @@ const Projects = () => {
                   ))}
                 </div>
 
-                <div className="flex flex-wrap gap-3 sm:gap-4">
-                  <a
-                    href={project.githubLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-sm sm:text-base text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                  >
-                    <FaGithub className="w-4 h-4 sm:w-5 sm:h-5" />
-                    <span>Code</span>
-                  </a>
-                  <a
-                    href={project.demoLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-sm sm:text-base text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
-                  >
-                    <FaExternalLinkAlt className="w-4 h-4 sm:w-5 sm:h-5" />
-                    <span>Live Demo</span>
-                  </a>
-                </div>
+                {!project.company && (
+                  <div className="flex flex-wrap gap-3 sm:gap-4">
+                    <a
+                      href={project.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-sm sm:text-base text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    >
+                      <FaGithub className="w-4 h-4 sm:w-5 sm:h-5" />
+                      <span>Code</span>
+                    </a>
+                    <a
+                      href={project.demoLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-sm sm:text-base text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 transition-colors"
+                    >
+                      <FaExternalLinkAlt className="w-4 h-4 sm:w-5 sm:h-5" />
+                      <span>Live Demo</span>
+                    </a>
+                  </div>
+                )}
               </div>
             </motion.div>
           ))}
