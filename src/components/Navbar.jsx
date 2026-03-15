@@ -22,7 +22,7 @@ const Navbar = () => {
       setScrolled(window.scrollY > 50);
 
       // Section tracking
-      const sections = ['home', 'about', 'projects', 'skills', 'experience', 'awards', 'contact'];
+      const sections = ['home', 'about', 'projects', 'skills', 'certifications', 'experience', 'awards', 'contact'];
       const scrollPosition = window.scrollY + 100;
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -53,6 +53,7 @@ const Navbar = () => {
     { label: 'About', id: 'about' },
     { label: 'Projects', id: 'projects' },
     { label: 'Skills', id: 'skills' },
+    { label: 'Certifications', id: 'certifications' },
     { label: 'Experience', id: 'experience' },
     { label: 'Awards', id: 'awards' },
     { label: 'Contact', id: 'contact' }
